@@ -28,7 +28,7 @@
       color: #555;
       margin-bottom: 20px;
     }
-    .reload {
+    .button {
       display: none;
       padding: 10px 20px;
       font-size: 1em;
@@ -37,14 +37,16 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      margin: 10px;
     }
   </style>
 </head>
 <body>
   <div class="card">
     <div class="objection" id="objection"></div>
-    <div class="timer" id="timer">Time remaining: 60s</div>
-    <button class="reload" id="reload" onclick="window.location.reload()">Tap for another 👊</button>
+    <div class="timer" id="timer">Time remaining: 15s</div>
+    <button class="button" id="done" onclick="endChallengeEarly()">Done Answering</button>
+    <button class="button" id="reload" onclick="window.location.reload()">Next Objection 👊</button>
   </div>
 
   <script>
@@ -68,8 +70,9 @@
 
     document.getElementById("objection").innerText = getRandomObjection();
 
-    let timeLeft = 60;
+    let timeLeft = 15;
     const timerElement = document.getElementById("timer");
+    const doneButton = document.getElementById("done");
     const reloadButton = document.getElementById("reload");
 
     const countdown = setInterval(() => {
@@ -79,9 +82,20 @@
       if (timeLeft <= 0) {
         clearInterval(countdown);
         timerElement.innerText = "Time’s up!";
+        doneButton.style.display = "none";
         reloadButton.style.display = "inline-block";
       }
     }, 1000);
+
+    function endChallengeEarly() {
+      clearInterval(countdown);
+      timerElement.innerText = "Marked as Done!";
+      doneButton.style.display = "none";
+      reloadButton.style.display = "inline-block";
+    }
+
+    // Show 'Done Answering' button immediately
+    doneButton.style.display = "inline-block";
   </script>
 </body>
 </html>
