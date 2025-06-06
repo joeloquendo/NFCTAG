@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objection Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 50px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .objection {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    .timer {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .reload {
+      display: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="objection" id="objection"></div>
+    <div class="timer" id="timer">Time remaining: 60s</div>
+    <button class="reload" id="reload" onclick="window.location.reload()">Tap for another 👊</button>
+  </div>
+
+  <script>
+    const objections = [
+      "We already tried selling and it didn’t work.",
+      "Our last agent didn’t do anything — why would you be any different?",
+      "We’re just going to stay put for now.",
+      "We’re going to wait until the market gets better.",
+      "We’re not going to give the house away.",
+      "We’re going to try selling it ourselves this time.",
+      "We’re not taking calls from agents.",
+      "My spouse doesn’t want to list again.",
+      "Why should I trust you when the last one couldn’t do it?",
+      "Send me something in the mail."
+    ];
+
+    function getRandomObjection() {
+      const index = Math.floor(Math.random() * objections.length);
+      return objections[index];
+    }
+
+    document.getElementById("objection").innerText = getRandomObjection();
+
+    let timeLeft = 60;
+    const timerElement = document.getElementById("timer");
+    const reloadButton = document.getElementById("reload");
+
+    const countdown = setInterval(() => {
+      timeLeft--;
+      timerElement.innerText = `Time remaining: ${timeLeft}s`;
+
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        timerElement.innerText = "Time’s up!";
+        reloadButton.style.display = "inline-block";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
